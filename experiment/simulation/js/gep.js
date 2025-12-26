@@ -80,14 +80,26 @@ const value1 = execute(tree1, vars);
 const value2 = execute(tree2, vars);
 const result = value1 + value2;
 
-document.getElementById("output").textContent =
-  "Chromosome:\n" + chromosome +
-  "\n\nGene 1: " + gene1.join(" ") +
-  "\nGene 2: " + gene2.join(" ") +
-  "\n\nGene 1 Value = " + value1.toFixed(4) +
-  "\nGene 2 Value = " + value2.toFixed(4) +
-  "\n\nFinal Program Value (Gene1 + Gene2) = " + result.toFixed(4);
+document.getElementById("output").value = chromosome;
+//   "\n\nGene 1 Value = " + value1.toFixed(4) +
+//   "\nGene 2 Value = " + value2.toFixed(4) +
+//   "\n\nFinal Program Value (Gene1 + Gene2) = " + result.toFixed(4)
 
-// Draw both genes
+
+
+
+
+//Draw gene 1 on button click gene 1
+function showgene1(){
 drawTree(tree1, "gene1");
-drawTree(tree2, "gene2");
+document.getElementById("showgene1").style.display="block";
+document.getElementById("geneexp1").textContent ="\n\nGene 1: " + gene1.join(" ");
+}
+
+
+//Draw gene 2 on button click gene 2
+function showgene2(){
+    drawTree(tree2, "gene2");
+    document.getElementById("showgene2").style.display="block";
+    document.getElementById("geneexp2").textContent ="\n\nGene 2: " + gene2.join(" ");
+}

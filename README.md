@@ -22,6 +22,7 @@ Genetic Expression Programming (GEP) is an evolutionary algorithm that automatic
 
 SrNo | Name | VLabs Developer or Integration Engineer | Designation | Department| Institute
 :--|:--|:--|:--|:--|:--|
-1 | **Saptarshi Mondal** | VLabs Developer | Junior Project Scientist | Department of Computer Science & Engineering | IIT Kharagpur | 
-2 | **Debashis Das Adhikary** | VLabs Developer | Senior Project Assistant | Department of Mechanical Engineering | IIT Kharagpur | 
-3 | **Indira Chowdhury** | VLabs Developer | Senior Project Assistant | Department of Mechanical Engineering | IIT Kharagpur |
+1 | **Prakriti Dhang** | VLabs Developer | Project Scientist | Department of Computer Science & Engineering | IIT Kharagpur |
+2 | **Saptarshi Mondal** | VLabs Developer | Junior Project Scientist | Department of Computer Science & Engineering | IIT Kharagpur | 
+3 | **Debashis Das Adhikary** | VLabs Developer | Senior Project Assistant | Department of Mechanical Engineering | IIT Kharagpur | 
+4 | **Indira Chowdhury** | VLabs Developer | Senior Project Assistant | Department of Mechanical Engineering | IIT Kharagpur |

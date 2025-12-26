@@ -1,7 +1,3 @@
-## Introduction
-
-Genetic Expression Programming (GEP) is an evolutionary algorithm that automatically creates computer programs. These computer programs can take many forms: they can be conventional mathematical models, neural networks, decision trees, sophisticated nonlinear models, logistic nonlinear regressors, nonlinear classifiers, complex polynomial structures, logic circuits and expressions, and so on. But irrespective of their complexity, all GEP programs are encoded in very simple linear structures - the chromosomes. These chromosomes are special because, no matter what, they always encode a valid computer program. So we can mutate them and then select the best ones to reproduce and then create more programs and so on, endlessly. This is, of course, one of the prerequisites for having a system evolving efficiently, searching for better and better solutions as it tries to solve a particular problem.
-
 ## Theory
 
 Genetic expression programming (GEP) is an evolutionary algorithm that creates computer programs or models. These computer programs are complex tree structures that learn and adapt by changing their sizes, shapes, and composition, much like a living organism. And like living organisms, the computer programs of GEP are also encoded in simple linear chromosomes of fixed length. Thus, GEP is a genotype-phenotype system, benefiting from a simple genome to keep and transmit the genetic information and a complex phenotype to explore the environment and adapt to it.

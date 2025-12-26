@@ -1,13 +1,39 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-		<!-- Your code goes here-->
+<html lang="en">
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+<head>
+	<meta charset="UTF-8">
+
+	<!-- Add CSS at the head of HTML file -->
+	<link rel="stylesheet" href="./css/main.css">
+	<style>
+		body {
+			font-family: Arial;
+			padding: 20px;
+		}
+
+		button {
+			padding: 8px 14px;
+			margin-bottom: 10px;
+		}
+
+		pre {
+			background: #f4f4f4;
+			padding: 10px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h2>Genetic Expression Programming (GEP)</h2>
+
+	<button onclick="runGEP()">Run GEP</button>
+
+	<pre id="output"></pre>
+
+	
+	<script src="./js/main.js"></script>
 </body>
+
 </html>

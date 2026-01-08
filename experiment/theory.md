@@ -3,9 +3,9 @@
 Genetic expression programming (GEP) is an evolutionary algorithm that creates computer programs or models. These computer programs are complex tree structures that learn and adapt by changing their sizes, shapes, and composition, much like a living organism. And like living organisms, the computer programs of GEP are also encoded in simple linear chromosomes of fixed length. Thus, GEP is a genotype-phenotype system, benefiting from a simple genome to keep and transmit the genetic information and a complex phenotype to explore the environment and adapt to it.
 
 **Encoding the Genotype**: 
-The genome of gene expression programming consists of a linear, symbolic string or chromosome of fixed length composed of one or more genes of equal size. These genes, despite their fixed length, code for expression trees of different sizes and shapes. An example of a chromosome with two genes, each of size 9, is the string (position zero indicates the start of each gene):
-012345678012345678
-L+a-baccd**cLabacd
+The genome of gene expression programming consists of a linear, symbolic string or chromosome of fixed length composed of one or more genes of equal size. These genes, despite their fixed length, code for expression trees of different sizes and shapes. An example of a chromosome with two genes, each of size 9, is the string (position zero indicates the start of each gene):  
+012345678012345678  
+L+a-baccd**cLabacd  
 where "L" represents the natural logarithm function and "a", "b", "c", and "d" represent the variables and constants used in a problem.
 The fundamental steps of the basic gene expression algorithm are listed below in pseudocode:
 

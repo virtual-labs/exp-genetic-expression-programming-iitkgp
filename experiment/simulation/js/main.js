@@ -1,150 +1,130 @@
-/*************************************************
- STEP 1: SELECT FUNCTION SET
-*************************************************/
+// ================= FUNCTION SET =================
 const FUNCTIONS = {
   "+": { arity: 2, fn: (a, b) => a + b },
   "-": { arity: 2, fn: (a, b) => a - b },
-  "*": { arity: 2, fn: (a, b) => a * b }
+  "*": { arity: 2, fn: (a, b) => a * b },
+  "L": { arity: 1, fn: a => Math.log(a) }
 };
 
-/*************************************************
- STEP 2: SELECT TERMINAL SET
-*************************************************/
-const TERMINALS = ["x", 1];
+// ================= CHROMOSOME =================
+const chromosome = "L+a-baccd**cLabacd";
+const GENE_SIZE = 9;
 
-/*************************************************
- STEP 3: LOAD DATASET FOR FITNESS EVALUATION
-*************************************************/
-const dataset = [
-  { x: 1, y: 3 },
-  { x: 2, y: 5 },
-  { x: 3, y: 7 }   // target: y = 2x + 1
-];
+const gene1 = chromosome.slice(0, 9).split("");
+const gene2 = chromosome.slice(9).split("");
 
-/*************************************************
- GEP PARAMETERS
-*************************************************/
-const POP_SIZE = 30;
-const GENERATIONS = 40;
-const HEAD_LEN = 5;
-const TAIL_LEN = HEAD_LEN + 1;
-const CHROM_LEN = HEAD_LEN + TAIL_LEN;
-const MUT_RATE = 0.1;
-
-/*************************************************
- STEP 4: CREATE INITIAL POPULATION RANDOMLY
-*************************************************/
-function randomChromosome() {
-  let c = [];
-  for (let i = 0; i < HEAD_LEN; i++)
-    c.push(Math.random() < 0.5 ? randKey(FUNCTIONS) : rand(TERMINALS));
-  for (let i = 0; i < TAIL_LEN; i++)
-    c.push(rand(TERMINALS));
-  return c;
-}
-
-function rand(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function randKey(obj) {
-  return Object.keys(obj)[Math.floor(Math.random() * Object.keys(obj).length)];
-}
-
-/*************************************************
- STEP 5 & 6: EXPRESS CHROMOSOME → TREE
-*************************************************/
-function expressChromosome(chrom) {
+// ================= BUILD EXPRESSION TREE =================
+function buildTree(gene) {
   let i = 0;
-  function build() {
-    let g = chrom[i++];
-    if (FUNCTIONS[g]) {
-      return { val: g, left: build(), right: build() };
+  function parse() {
+    const s = gene[i++];
+    if (FUNCTIONS[s]) {
+      return {
+        val: s,
+        children: Array.from(
+          { length: FUNCTIONS[s].arity },
+          () => parse()
+        )
+      };
     }
-    return { val: g };
+    return { val: s };
   }
-  return build();
+  return parse();
 }
 
-/*************************************************
- STEP 7: EXECUTE PROGRAM
-*************************************************/
-function execute(tree, x) {
-  if (!tree.left) return tree.val === "x" ? x : tree.val;
-  return FUNCTIONS[tree.val].fn(
-    execute(tree.left, x),
-    execute(tree.right, x)
-  );
+// ================= EXECUTE TREE =================
+function execute(node, vars) {
+  if (!node.children) return vars[node.val];
+  const args = node.children.map(c => execute(c, vars));
+  return FUNCTIONS[node.val].fn(...args);
 }
 
-/*************************************************
- STEP 8: EVALUATE FITNESS
-*************************************************/
-function fitness(chrom) {
-  let tree = expressChromosome(chrom);
-  let error = 0;
-  dataset.forEach(d => {
-    error += Math.abs(d.y - execute(tree, d.x));
+// ================= DRAW TREE =================
+function drawTree(root, canvasId) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "14px Arial";
+
+
+  function draw(node, x, y, dx) {
+  const radius = 14;
+
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.fillText(node.val, x - 5, y + 5);
+
+  if (!node.children) return;
+
+  node.children.forEach((child, i) => {
+    const nx = x + (i === 0 ? -dx : dx);
+    const ny = y + 60;
+
+    // Direction vector
+    const vx = nx - x;
+    const vy = ny - y;
+    const length = Math.sqrt(vx * vx + vy * vy);
+
+    // Unit vector
+    const ux = vx / length;
+    const uy = vy / length;
+
+    // Offset start and end points to circle boundaries
+    const startX = x + ux * radius;
+    const startY = y + uy * radius;
+    const endX = nx - ux * radius;
+    const endY = ny - uy * radius;
+
+    // Draw line outside circles
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.stroke();
+
+    draw(child, nx, ny, dx / 1.5);
   });
-  return 1 / (1 + error);
 }
 
-/*************************************************
- STEP 10 & 11: SELECTION + REPLICATION
-*************************************************/
-function select(pop) {
-  pop.sort((a, b) => fitness(b) - fitness(a));
-  return pop.slice(0, POP_SIZE / 2);
+  
+
+  draw(root, canvas.width / 2, 30, 120);
 }
 
-/*************************************************
- STEP 12: GENETIC OPERATORS (MUTATION)
-*************************************************/
-function mutate(chrom) {
-  return chrom.map((g, i) => {
-    if (Math.random() < MUT_RATE) {
-      return i < HEAD_LEN
-        ? (Math.random() < 0.5 ? randKey(FUNCTIONS) : rand(TERMINALS))
-        : rand(TERMINALS);
-    }
-    return g;
-  });
+// ================= RUN =================
+const tree1 = buildTree(gene1);
+const tree2 = buildTree(gene2);
+
+// Example variable values
+const vars = { a: 5, b: 3, c: 2, d: 1 };
+
+// Multigenic linking: +
+const value1 = execute(tree1, vars);
+const value2 = execute(tree2, vars);
+const result = value1 + value2;
+
+document.getElementById("output").value = chromosome;
+//   "\n\nGene 1 Value = " + value1.toFixed(4) +
+//   "\nGene 2 Value = " + value2.toFixed(4) +
+//   "\n\nFinal Program Value (Gene1 + Gene2) = " + result.toFixed(4)
+
+
+
+
+
+//Draw gene 1 on button click gene 1
+function showgene1(){
+drawTree(tree1, "gene1");
+document.getElementById("showgene1").style.display="block";
+document.getElementById("notationgene1").textContent="Prefix notation: L( a + ( b − a ) )";
+document.getElementById("geneexp1").textContent ="\n\nGene 1: " + gene1.join(" ");
 }
 
-/*************************************************
- MAIN LOOP — FOLLOWS THE ALGORITHM EXACTLY
-*************************************************/
-function runGEP() {
 
-  // Step 4
-  let population = Array.from({ length: POP_SIZE }, randomChromosome);
-
-  for (let gen = 0; gen < GENERATIONS; gen++) {
-
-    // Step 5–8
-    let best = population.reduce((a, b) => fitness(a) > fitness(b) ? a : b);
-
-    // Step 9: Stop condition
-    if (fitness(best) > 0.99) break;
-
-    // Step 10
-    let selected = select(population);
-
-    // Step 11
-    let nextPop = [...selected];
-
-    // Step 12
-    while (nextPop.length < POP_SIZE) {
-      let parent = rand(selected);
-      nextPop.push(mutate([...parent]));
-    }
-
-    population = nextPop;
-  }
-
-  let best = population.reduce((a, b) => fitness(a) > fitness(b) ? a : b);
-
-  document.getElementById("output").textContent =
-    "Best Chromosome:\n" + best.join(" ") +
-    "\nFitness: " + fitness(best).toFixed(4);
+//Draw gene 2 on button click gene 2
+function showgene2(){
+    drawTree(tree2, "gene2");
+    document.getElementById("showgene2").style.display="block";
+    document.getElementById("notationgene2").textContent="Prefix notation: b *( c * L( a ) )";
+    document.getElementById("geneexp2").textContent ="\n\nGene 2: " + gene2.join(" ");
 }

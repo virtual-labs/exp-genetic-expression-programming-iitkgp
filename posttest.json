@@ -1,0 +1,29 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "Which of the following is NOT an application of Genetic Expression Programming (GEP)",
+      "answers": {
+        "a": "Symbolic Regression",
+        "b": "Feature Selection",
+        "c": "Image Recognition",
+        "d": "Time Series Forecasting"
+      },
+      
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "The main advantage of Genetic Expression Programming (GEP) over traditional Genetic Programming (GP) is:",
+      "answers": {
+        "a": "GEP allows for variable-length chromosomes",
+        "b": "GEP produces more accurate results",
+        "c": "GEP has a simpler algorithmic structure",
+        "d": "GEP requires less computational resources"
+      },
+      
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    }
+  ]
+}

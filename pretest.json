@@ -1,0 +1,28 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "In Genetic Expression Programming (GEP), the process of selecting individuals for reproduction based on their fitness is known as:",
+      "answers": {
+        "a": "Crossover",
+        "b": "Mutation",
+        "c": "Selection",
+        "d": "Elitism"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which of the following is a potential disadvantage of Genetic Expression Programming (GEP)?",
+      "answers": {
+        "a": "Difficulty in handling variable-length chromosomes",
+        "b": "Limited scalability for large-scale optimization problems",
+        "c": "Inability to handle real-valued parameters",
+        "d": "Lack of flexibility in genetic operators"
+      },
+      
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    }
+  ]
+}
